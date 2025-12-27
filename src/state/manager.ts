@@ -135,7 +135,7 @@ export class StateManager {
     const config = this.getConfig();
     
     // Check if auto-degradation is allowed
-    if (!config.fallback.canAutoDegade) {
+    if (!config.fallback.canAutoDegrade) {
       return false;
     }
 

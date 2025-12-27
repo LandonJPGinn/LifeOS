@@ -32,7 +32,7 @@ export interface FallbackConfig {
   /** State to fallback to if current state becomes unmanageable */
   fallbackState: CapacityState;
   /** Whether this state can auto-degrade to fallback */
-  canAutoDegade: boolean;
+  canAutoDegrade: boolean;
   /** Threshold indicators that trigger degradation */
   degradeTriggers: string[];
 }

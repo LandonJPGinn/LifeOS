@@ -41,7 +41,7 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
     },
     fallback: {
       fallbackState: 'foggy',
-      canAutoDegade: false,
+      canAutoDegrade: false,
       degradeTriggers: []
     }
   },
@@ -69,7 +69,7 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
     },
     fallback: {
       fallbackState: 'foggy',
-      canAutoDegade: true,
+      canAutoDegrade: true,
       degradeTriggers: ['overwhelm', 'panic', 'shutdown']
     }
   },
@@ -97,7 +97,7 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
     },
     fallback: {
       fallbackState: 'foggy',
-      canAutoDegade: true,
+      canAutoDegrade: true,
       degradeTriggers: ['exhaustion', 'withdrawal']
     }
   },
@@ -125,7 +125,7 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
     },
     fallback: {
       fallbackState: 'foggy',
-      canAutoDegade: true,
+      canAutoDegrade: true,
       degradeTriggers: ['meltdown', 'shutdown', 'overwhelm']
     }
   },
@@ -153,7 +153,7 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
     },
     fallback: {
       fallbackState: 'flat',
-      canAutoDegade: true,
+      canAutoDegrade: true,
       degradeTriggers: ['fatigue', 'distraction', 'depletion']
     }
   }
