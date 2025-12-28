@@ -6,6 +6,7 @@
  */
 
 import type { CalendarEvent, CalendarSource } from '../types/index.js';
+import type { BaseIntegration } from './base.js';
 
 /**
  * Date range for fetching events
@@ -19,18 +20,9 @@ export interface DateRange {
  * Interface for calendar integrations.
  * Implementations should connect to services like Google Calendar, Outlook, etc.
  */
-export interface CalendarIntegration {
-  /** Unique identifier for this integration */
-  readonly id: string;
-  
-  /** Human-readable name */
-  readonly name: string;
-  
+export interface CalendarIntegration extends BaseIntegration {
   /** Whether this is a work or personal calendar */
   readonly source: CalendarSource;
-  
-  /** Whether the integration is currently connected */
-  isConnected(): boolean;
   
   /**
    * Fetch events from the calendar for a date range.
@@ -56,6 +48,14 @@ export abstract class BaseCalendarIntegration implements CalendarIntegration {
   
   isConnected(): boolean {
     return this.connected;
+  }
+
+  async connect(): Promise<void> {
+    this.connected = true;
+  }
+
+  async disconnect(): Promise<void> {
+    this.connected = false;
   }
   
   abstract fetchEvents(range: DateRange): Promise<CalendarEvent[]>;

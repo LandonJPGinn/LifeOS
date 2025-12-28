@@ -1,29 +1,16 @@
 #!/usr/bin/env node
 
-import { LifeOS, MockTaskManager, MockCalendar, isValidCapacity, type CapacityState } from './index.js';
+import { LifeOS, AsanaIntegration, GoogleCalendarIntegration, ObsidianIntegration, isValidCapacity, type CapacityState } from './index.js';
 
-// --- Mock Data Setup ---
-const mockTaskManager = new MockTaskManager();
-mockTaskManager.setTasks([
-  { id: '1', title: 'Write report', priority: 'essential', domain: 'work', cognitiveLoad: 'high', estimatedMinutes: 120, visible: false, source: 'mock' },
-  { id: '2', title: 'Pay bills', priority: 'essential', domain: 'personal', cognitiveLoad: 'low', estimatedMinutes: 15, visible: false, source: 'mock' },
-  { id: '3', title: 'Team meeting', priority: 'important', domain: 'work', cognitiveLoad: 'medium', estimatedMinutes: 60, visible: false, source: 'mock' },
-  { id: '4', title: 'Plan vacation', priority: 'normal', domain: 'personal', cognitiveLoad: 'medium', estimatedMinutes: 45, visible: false, source: 'mock' },
-  { id: '5', title: 'Review PR', priority: 'important', domain: 'work', cognitiveLoad: 'high', estimatedMinutes: 30, visible: false, source: 'mock' },
-  { id: '6', title: 'Grocery shopping', priority: 'essential', domain: 'personal', cognitiveLoad: 'low', estimatedMinutes: 45, visible: false, source: 'mock' },
-  { id: '7', title: 'Call doctor', priority: 'essential', domain: 'personal', cognitiveLoad: 'minimal', estimatedMinutes: 10, visible: false, source: 'mock' },
-]);
-
-const mockWorkCalendar = new MockCalendar('work');
-const now = new Date();
-mockWorkCalendar.setEvents([
-    { id: 'w1', title: 'Project Standup', startTime: new Date(now.getTime() + 1 * 60 * 60 * 1000), endTime: new Date(now.getTime() + 1.5 * 60 * 60 * 1000), source: 'work', intent: 'collaborative', active: false, calendarProvider: 'mock' },
-    { id: 'w2', title: 'Code Review', startTime: new Date(now.getTime() + 3 * 60 * 60 * 1000), endTime: new Date(now.getTime() + 4 * 60 * 60 * 1000), source: 'work', intent: 'focus', active: false, calendarProvider: 'mock' },
-]);
+// --- Integrations Setup ---
+const asana = new AsanaIntegration();
+const googleCalendar = new GoogleCalendarIntegration();
+const obsidian = new ObsidianIntegration();
 
 const lifeos = new LifeOS();
-lifeos.addTaskManager(mockTaskManager);
-lifeos.addCalendar(mockWorkCalendar);
+lifeos.addTaskManager(asana);
+lifeos.addTaskManager(obsidian);
+lifeos.addCalendar(googleCalendar);
 
 // --- CLI Logic ---
 const args = process.argv.slice(2);

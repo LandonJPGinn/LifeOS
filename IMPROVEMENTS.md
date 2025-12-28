@@ -25,3 +25,10 @@ This document outlines potential future improvements for LifeOS. Each iteration 
 5.  **User Interface:**
     *   Create a simple, clean user interface for visualizing the daily plan.
     *   Develop a dashboard for reviewing past capacity states and identifying patterns.
+
+6.  **Enhanced CLI:**
+    *   Add commands to the CLI for managing integrations (e.g., connecting, disconnecting, listing).
+    *   Improve the output of the `view` command to be more detailed and user-friendly.
+
+7.  **Inter-day State Memory:**
+    *   Introduce an optional feature to remember the previous day's state and suggest a starting state for the current day. This would help users who tend to have multi-day periods of low or high capacity.

@@ -6,21 +6,13 @@
  */
 
 import type { Task, TaskDomain } from '../types/index.js';
+import type { BaseIntegration } from './base.js';
 
 /**
  * Interface for task manager integrations.
  * Implementations should handle authentication and API communication.
  */
-export interface TaskManagerIntegration {
-  /** Unique identifier for this integration */
-  readonly id: string;
-  
-  /** Human-readable name */
-  readonly name: string;
-  
-  /** Whether the integration is currently connected */
-  isConnected(): boolean;
-  
+export interface TaskManagerIntegration extends BaseIntegration {
   /**
    * Fetch tasks from the external service.
    * Should transform external task format to LifeOS Task type.
@@ -44,6 +36,14 @@ export abstract class BaseTaskManagerIntegration implements TaskManagerIntegrati
   
   isConnected(): boolean {
     return this.connected;
+  }
+
+  async connect(): Promise<void> {
+    this.connected = true;
+  }
+
+  async disconnect(): Promise<void> {
+    this.connected = false;
   }
   
   abstract fetchTasks(): Promise<Task[]>;
