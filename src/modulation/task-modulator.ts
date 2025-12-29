@@ -12,6 +12,8 @@ import type { StateConfig } from '../types/index.js';
  * Result of task modulation
  */
 export interface TaskModulationResult {
+  /** Total number of tasks before modulation */
+  totalTasks: number;
   /** Tasks that are visible given current state */
   visibleTasks: Task[];
   /** Tasks that were filtered out */
@@ -81,6 +83,7 @@ export class TaskModulator {
       .map(t => ({ ...t, visible: false }));
 
     return {
+      totalTasks: tasks.length,
       visibleTasks,
       hiddenTasks,
       totalMinutes,
