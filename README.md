@@ -57,6 +57,28 @@ console.log(`Energy budget: ${today.energyBudget}/10`);
 npm install lifeos
 ```
 
+## CLI Usage
+
+The CLI is the primary way to interact with LifeOS.
+
+```bash
+# Set your capacity for the day
+lifeos set-capacity flat
+
+# View your modulated day
+lifeos view
+
+# Get a recommendation for your capacity state
+lifeos recommend-state
+
+# Sync with external tools (placeholder)
+lifeos sync
+```
+
+### Inter-day State Memory
+
+LifeOS saves your last capacity state in a `.lifeos-state.json` file in your current directory. This allows the system to remember your last state and use it as the default for the next day.
+
 ## Core Concepts
 
 ### State Management

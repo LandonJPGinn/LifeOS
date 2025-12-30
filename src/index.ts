@@ -200,6 +200,15 @@ export class LifeOS {
   }
 
   /**
+   * Get all tasks and events before modulation.
+   */
+  async getUnmodulatedData(): Promise<{ tasks: Task[]; events: CalendarEvent[] }> {
+    const tasks = await this.fetchAllTasks();
+    const events = await this.fetchTodayEvents();
+    return { tasks, events };
+  }
+
+  /**
    * Get a formatted timestamp for the daily view.
    */
   getFormattedTimestamp(date: Date): string {
