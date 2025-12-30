@@ -23,15 +23,34 @@ The most crucial part of using `lifeOS` is the morning check-in. This is a momen
 
 You can declare your state in several ways, depending on your preferences and technical setup. Here are some ideas, from simple to more advanced:
 
+*   **Command-Line Interface:** The primary way to interact with `lifeOS` is through the CLI.
+    ```bash
+    # Set your capacity for the day
+    lifeos set-capacity flat
+
+    # View your modulated day
+    lifeOS view
+    ```
 *   **Command-Line Alias:** For developers, a simple shell alias can be very effective:
     ```bash
     alias foggy="lifeos set-capacity foggy"
     alias anxious="lifeos set-capacity anxious"
     # ...and so on
     ```
-*   **Physical Buttons:** Using a small IoT button (like an AWS IoT Button or a Flic button) can provide a tangible, screen-free way to declare your state.
-*   **Mobile Widget:** A simple mobile widget with five buttons, one for each state, can make the check-in as easy as checking the weather.
-*   **Stream Deck or Programmable Keyboard:** For those with a Stream Deck or similar device, you can create a dedicated `lifeOS` profile with buttons for each state.
+
+### Inter-day State Memory
+
+To make your morning check-in even more seamless, `lifeOS` saves your last capacity state in a `.lifeos-state.json` file in your current directory. This allows the system to remember your last state and use it as the default for the next day.
+
+### Getting a Recommendation
+
+If you're unsure what to set your capacity to, you can use the `recommend-state` command:
+
+```bash
+lifeos recommend-state
+```
+
+This command will analyze your current tasks and events and suggest a capacity state based on their cognitive load and intent.
 
 ### When to Declare
 
@@ -42,9 +61,9 @@ You can declare your state in several ways, depending on your preferences and te
 
 `lifeOS` is not designed to replace your favorite task manager or calendar. Instead, it acts as a modulation layer on top of them. The key is to create a "Today" view in your existing tools that is populated by `lifeOS`.
 
-### The "Sync" Script
+### The "Sync" Command
 
-The bridge between `lifeOS` and your tools is a `sync` script. This script, which you can run manually or automatically after your morning check-in, will:
+The bridge between `lifeOS` and your tools is the `sync` command. This command, which you can run manually or automatically after your morning check-in, will:
 
 1.  **Instantiate `lifeOS`:** It creates an instance of the `lifeOS` class.
 2.  **Add Integrations:** It connects to your task manager(s) and calendar(s) using the appropriate integration plugins.
@@ -53,6 +72,11 @@ The bridge between `lifeOS` and your tools is a `sync` script. This script, whic
     *   Create a "Today" list or tag in your task manager and populate it with the `visibleTasks`.
     *   Mark any `suggestedCancellations` in your calendar, perhaps by adding a "[CANCEL?]" prefix to the event title.
     *   Create `recoveryBuffers` as new, private events in your calendar.
+
+```bash
+lifeos sync
+```
+*(Note: The `sync` command is currently a placeholder and does not yet perform these actions.)*
 
 ### Example Workflow (Todoist + Google Calendar)
 

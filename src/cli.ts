@@ -1,13 +1,33 @@
 #!/usr/bin/env node
 
 import { LifeOS, AsanaIntegration, GoogleCalendarIntegration, ObsidianIntegration, isValidCapacity, type CapacityState } from './index.js';
+import * as fs from 'fs';
+import * as path from 'path';
+import chalk from 'chalk';
+
+const STATE_FILE = path.join(process.cwd(), '.lifeos-state.json');
+
+// --- State Persistence ---
+
+function saveState(state: CapacityState) {
+  fs.writeFileSync(STATE_FILE, JSON.stringify({ lastState: state }));
+}
+
+function loadState(): CapacityState | null {
+  if (fs.existsSync(STATE_FILE)) {
+    const data = fs.readFileSync(STATE_FILE, 'utf-8');
+    const { lastState } = JSON.parse(data);
+    return isValidCapacity(lastState) ? lastState : null;
+  }
+  return null;
+}
 
 // --- Integrations Setup ---
 const asana = new AsanaIntegration();
 const googleCalendar = new GoogleCalendarIntegration();
 const obsidian = new ObsidianIntegration();
 
-const lifeos = new LifeOS();
+const lifeos = new LifeOS({ initialState: loadState() ?? undefined });
 lifeos.addTaskManager(asana);
 lifeos.addTaskManager(obsidian);
 lifeos.addCalendar(googleCalendar);
@@ -24,6 +44,7 @@ async function handleSetCapacity(capacity?: CapacityState) {
     process.exit(1);
   }
   lifeos.setCapacity(capacity);
+  saveState(capacity);
   console.log(`Capacity set to: ${capacity}`);
   await printDailyView();
 }
@@ -38,18 +59,51 @@ async function handleDegrade(trigger: string = 'manual') {
   }
 }
 
-async function handleRecommendState() {
-  const { taskCount, eventCount } = await lifeos.getUnmodulatedLoad();
-  const totalItems = taskCount + eventCount;
-  let recommendation: CapacityState = 'foggy';
+async function handleSync() {
+  console.log('Syncing with external tools... (Not yet implemented)');
+  // Future implementation will go here
+}
 
-  if (totalItems > 15) {
+async function handleRecommendState() {
+  const { tasks, events } = await lifeos.getUnmodulatedData();
+  const taskCount = tasks.length;
+  const eventCount = events.length;
+
+  let score = 0;
+
+  // Task scoring
+  tasks.forEach(task => {
+    switch (task.priority) {
+      case 'essential': score += 5; break;
+      case 'important': score += 3; break;
+      case 'normal': score += 2; break;
+      case 'optional': score += 1; break;
+    }
+    switch (task.cognitiveLoad) {
+      case 'high': score += 5; break;
+      case 'medium': score += 3; break;
+      case 'low': score += 1; break;
+    }
+  });
+
+  // Event scoring
+  events.forEach(event => {
+    switch (event.intent) {
+      case 'essential': score += 5; break;
+      case 'focus': score += 4; break;
+      case 'collaborative': score += 3; break;
+      case 'flexible': score += 1; break;
+    }
+  });
+
+  let recommendation: CapacityState = 'foggy';
+  if (score > 40) {
     recommendation = 'overstimulated';
-  } else if (totalItems > 10) {
+  } else if (score > 25) {
     recommendation = 'anxious';
-  } else if (totalItems > 5) {
+  } else if (score > 10) {
     recommendation = 'flat';
-  } else if (totalItems > 0) {
+  } else if (score > 0) {
     recommendation = 'driven';
   }
 
@@ -63,37 +117,49 @@ function printHelp() {
   console.log('  view, status          View your current daily plan');
   console.log('  degrade [trigger]     Degrade to a lower capacity state');
   console.log('  recommend-state       Get a suggested state based on your current load');
+  console.log('  sync                  Sync with external tools');
 }
 
 async function printDailyView() {
     const view = await lifeos.getDailyView();
     const timestamp = lifeos.getFormattedTimestamp(view.generatedAt);
 
-    console.log(`\n--- Your Modulated Day ---`);
-    console.log(`State: ${view.state} (Energy Budget: ${view.energyBudget}/10)`);
-    console.log(`As of: ${timestamp}\n`);
+    const stateColors = {
+        driven: chalk.green,
+        flat: chalk.blue,
+        foggy: chalk.gray,
+        anxious: chalk.yellow,
+        overstimulated: chalk.red,
+    };
 
-    console.log(`✅ Visible Tasks (${view.tasks.visibleTasks.length} of ${view.tasks.totalTasks})`);
+    const color = stateColors[view.state] || chalk.white;
+
+    console.log(chalk.bold.underline('\n--- Your Modulated Day ---'));
+    console.log(`State: ${color(view.state)} (Energy Budget: ${view.energyBudget}/10)`);
+    console.log(`As of: ${chalk.dim(timestamp)}\n`);
+
+    console.log(chalk.bold.green(`✅ Visible Tasks (${view.tasks.visibleTasks.length}/${view.tasks.totalTasks})`));
     if (view.tasks.visibleTasks.length > 0) {
         view.tasks.visibleTasks.forEach(task => {
-            console.log(`   - [ ] ${task.title} (~${task.estimatedMinutes} mins)`);
+            console.log(`   - [ ] ${task.title} ${chalk.dim(`(~${task.estimatedMinutes} mins)`)}`);
         });
+        console.log(chalk.dim(`   Total time: ${view.tasks.totalMinutes} mins | Remaining capacity: ${view.tasks.remainingCapacity} mins`));
     } else {
-        console.log("   No tasks visible for your current state.");
+        console.log(chalk.dim("   No tasks visible for your current state."));
     }
-    console.log(`   (${view.tasks.hiddenTasks.length} tasks hidden)`);
+    console.log(chalk.dim(`   (${view.tasks.hiddenTasks.length} tasks hidden)`));
 
-    console.log(`\n🗓️  Active Events (${view.calendar.activeEvents.length} of ${view.calendar.totalEvents})`);
+    console.log(chalk.bold.blue(`\n🗓️  Active Events (${view.calendar.activeEvents.length}/${view.calendar.totalEvents})`));
     if (view.calendar.activeEvents.length > 0) {
         view.calendar.activeEvents.forEach(event => {
             const startTime = event.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const endTime = event.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            console.log(`   - ${startTime} - ${endTime}: ${event.title}`);
+            console.log(`   - ${chalk.cyan(startTime)} - ${chalk.cyan(endTime)}: ${event.title}`);
         });
     } else {
-        console.log("   No events scheduled for today.");
+        console.log(chalk.dim("   No events scheduled for today."));
     }
-    console.log(`   (${view.calendar.suggestedCancellations.length} events suggested for cancellation)`);
+    console.log(chalk.dim(`   (${view.calendar.suggestedCancellations.length} events suggested for cancellation)`));
     console.log(`\n`);
 }
 
@@ -117,6 +183,9 @@ async function main() {
       break;
     case 'recommend-state':
       await handleRecommendState();
+      break;
+    case 'sync':
+      await handleSync();
       break;
     default:
       printHelp();
