@@ -1,8 +1,23 @@
-# LifeOS Future Improvements
+# LifeOS Current Development Cycle
 
-This document outlines potential future improvements for LifeOS. Each iteration of development should aim to address one or more of these points, replacing this list with the next set of planned improvements upon completion.
+This document outlines the features and improvements being implemented in the current development cycle. Upon completion, this list will be updated to reflect the next set of planned improvements.
 
-## Next Steps
+## V2 Improvements (Current)
+
+1.  **Enhanced `recommend-state` command:**
+    *   The `recommend-state` command will be upgraded to analyze not just the number of tasks and events, but also their properties (priority, cognitive load, intent) to provide a more nuanced and accurate recommendation.
+
+2.  **Inter-day State Memory:**
+    *   A local state persistence mechanism (`.lifeos-state.json`) will be introduced to remember the last used capacity state.
+    *   The CLI will use this to suggest a default state, making the morning check-in process more seamless.
+
+3.  **`sync` command:**
+    *   A new `sync` command will be added to the CLI as a placeholder for future real-world integrations with tools like Asana, Google Calendar, and Obsidian.
+
+4.  **CLI Readability:**
+    *   The CLI output will be improved for better readability, using colors and more detailed information to make the daily view more user-friendly.
+
+## Future Improvements
 
 1.  **Real-World Integrations:**
     *   Implement integrations for popular task managers (e.g., Todoist, Asana, Notion) and calendars (e.g., Google Calendar, Outlook).
@@ -25,10 +40,3 @@ This document outlines potential future improvements for LifeOS. Each iteration 
 5.  **User Interface:**
     *   Create a simple, clean user interface for visualizing the daily plan.
     *   Develop a dashboard for reviewing past capacity states and identifying patterns.
-
-6.  **Enhanced CLI:**
-    *   Add commands to the CLI for managing integrations (e.g., connecting, disconnecting, listing).
-    *   Improve the output of the `view` command to be more detailed and user-friendly.
-
-7.  **Inter-day State Memory:**
-    *   Introduce an optional feature to remember the previous day's state and suggest a starting state for the current day. This would help users who tend to have multi-day periods of low or high capacity.
