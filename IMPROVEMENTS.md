@@ -4,31 +4,9 @@ This document outlines potential future improvements for LifeOS. Each iteration 
 
 ## Next Steps
 
-1.  **Real-World Integrations:**
-    *   Implement integrations for popular task managers (e.g., Todoist, Asana, Notion) and calendars (e.g., Google Calendar, Outlook).
-    *   Create a plugin-based architecture to make it easy to add new integrations.
-
-2.  **Enhanced State Declaration:**
-    *   Develop a mobile widget for quick state declaration.
-    *   Explore integrations with physical buttons (e.g., Flic, IoT buttons) for a screen-free experience.
-    *   Integrate with wearable devices to automatically suggest capacity states based on biometric data (e.g., heart rate variability, sleep patterns).
-
-3.  **Smarter Modulation:**
-    *   Use machine learning to learn from a user's behavior and suggest more personalized daily plans.
-    *   Allow for more granular control over task and calendar modulation rules.
-    *   Introduce the concept of "energy levels" for tasks and events to provide a more accurate daily budget.
-
-4.  **Notification Management:**
-    *   Integrate with operating system focus modes (e.g., iOS/macOS Focus, Windows Focus Assist) to automatically silence notifications based on the current capacity state.
-    *   Allow for fine-grained control over which notifications are allowed in each state.
-
-5.  **User Interface:**
-    *   Create a simple, clean user interface for visualizing the daily plan.
-    *   Develop a dashboard for reviewing past capacity states and identifying patterns.
-
-6.  **Enhanced CLI:**
-    *   Add commands to the CLI for managing integrations (e.g., connecting, disconnecting, listing).
-    *   Improve the output of the `view` command to be more detailed and user-friendly.
-
-7.  **Inter-day State Memory:**
-    *   Introduce an optional feature to remember the previous day's state and suggest a starting state for the current day. This would help users who tend to have multi-day periods of low or high capacity.
+1.  **"First Step" Guidance:**
+    *   For visible tasks, especially in `foggy` or `anxious` states, introduce a feature that helps the user identify the absolute smallest possible first action.
+    *   This is not about breaking down the whole task, but about reducing the friction of starting. Examples:
+        *   Task: "Write report" -> First Step: "Open the document."
+        *   Task: "Do laundry" -> First Step: "Walk to the laundry basket."
+    *   This could be implemented as an optional, interactive prompt in the CLI or a dedicated field in the task data model. The goal is to make the initial step so simple it feels effortless, bypassing executive dysfunction.
