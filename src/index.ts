@@ -188,6 +188,31 @@ export class LifeOS {
   }
 
   /**
+   * Get the total number of tasks and events before modulation.
+   */
+  async getUnmodulatedLoad(): Promise<{ taskCount: number; eventCount: number }> {
+    const allTasks = await this.fetchAllTasks();
+    const allEvents = await this.fetchTodayEvents();
+    return {
+      taskCount: allTasks.length,
+      eventCount: allEvents.length,
+    };
+  }
+
+  /**
+   * Get a formatted timestamp for the daily view.
+   */
+  getFormattedTimestamp(date: Date): string {
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  }
+
+  /**
    * Fetch tasks from all connected task managers.
    */
   private async fetchAllTasks(): Promise<Task[]> {

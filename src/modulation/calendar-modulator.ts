@@ -12,6 +12,8 @@ import type { StateConfig } from '../types/index.js';
  * Result of calendar modulation
  */
 export interface CalendarModulationResult {
+  /** Total number of events before modulation */
+  totalEvents: number;
   /** Events that should be honored */
   activeEvents: CalendarEvent[];
   /** Events suggested for cancellation/reschedule */
@@ -93,6 +95,7 @@ export class CalendarModulator {
       : [];
 
     return {
+      totalEvents: events.length,
       activeEvents,
       suggestedCancellations,
       recoveryBuffers,
