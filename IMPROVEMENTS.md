@@ -4,9 +4,11 @@ This document outlines potential future improvements for LifeOS. Each iteration 
 
 ## Next Steps
 
-1.  **"First Step" Guidance:**
-    *   For visible tasks, especially in `foggy` or `anxious` states, introduce a feature that helps the user identify the absolute smallest possible first action.
-    *   This is not about breaking down the whole task, but about reducing the friction of starting. Examples:
-        *   Task: "Write report" -> First Step: "Open the document."
-        *   Task: "Do laundry" -> First Step: "Walk to the laundry basket."
-    *   This could be implemented as an optional, interactive prompt in the CLI or a dedicated field in the task data model. The goal is to make the initial step so simple it feels effortless, bypassing executive dysfunction.
+1.  **Context-Aware Guidance:**
+    *   Introduce a feature that provides context-aware suggestions based on the user's declared state, aimed at either boosting inspiration or protecting focus.
+    *   This moves beyond simple task management to actively support the user's mental state.
+    *   **In low-capacity states (`foggy`, `anxious`, `flat`):** Before presenting a task, the system could suggest a small, mood-lifting activity.
+        *   Example: "Before you start on that report, maybe 5 minutes of your favorite music or some sunlight would help clear the fog?"
+    *   **In high-capacity states (`driven`):** The system could suggest techniques to shield and maintain focus.
+        *   Example: "You're in a driven state. Would you like to start a Pomodoro timer or enable time-blocking in your calendar to protect your flow?"
+    *   This would be an optional, configurable feature, allowing users to tailor the suggestions to what works for them.
