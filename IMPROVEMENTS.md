@@ -2,21 +2,6 @@
 
 This document outlines the features and improvements being implemented in the current development cycle. Upon completion, this list will be updated to reflect the next set of planned improvements.
 
-## V2 Improvements (Current)
-
-1.  **Enhanced `recommend-state` command:**
-    *   The `recommend-state` command will be upgraded to analyze not just the number of tasks and events, but also their properties (priority, cognitive load, intent) to provide a more nuanced and accurate recommendation.
-
-2.  **Inter-day State Memory:**
-    *   A local state persistence mechanism (`.lifeos-state.json`) will be introduced to remember the last used capacity state.
-    *   The CLI will use this to suggest a default state, making the morning check-in process more seamless.
-
-3.  **`sync` command:**
-    *   A new `sync` command will be added to the CLI as a placeholder for future real-world integrations with tools like Asana, Google Calendar, and Obsidian.
-
-4.  **CLI Readability:**
-    *   The CLI output will be improved for better readability, using colors and more detailed information to make the daily view more user-friendly.
-
 ## Future Improvements
 
 1.  **Real-World Integrations:**
@@ -40,3 +25,6 @@ This document outlines the features and improvements being implemented in the cu
 5.  **User Interface:**
     *   Create a simple, clean user interface for visualizing the daily plan.
     *   Develop a dashboard for reviewing past capacity states and identifying patterns.
+
+6.  **Implement `sync` command:**
+    *   Provide real integration with external tools.
