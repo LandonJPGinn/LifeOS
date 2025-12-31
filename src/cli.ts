@@ -36,7 +36,7 @@ lifeos.addCalendar(googleCalendar);
 
 async function handleSetCapacity(capacity?: CapacityState) {
   if (!capacity) {
-    console.error('Error: Missing capacity state. e.g., "lifeos set-capacity foggy"');
+    console.error('Error: Missing capacity state. e.g., "lifeos mood foggy"');
     process.exit(1);
   }
   if (!isValidCapacity(capacity)) {
@@ -181,11 +181,11 @@ async function handleFocus() {
 function printHelp() {
   console.log('Usage: lifeos <command> [value]');
   console.log('Commands:');
-  console.log('  set-capacity <state>  Set your current capacity');
+  console.log('  mood <state>          Set your current capacity');
   console.log('  view, status          View your current daily plan');
   console.log('  focus                 Show the next immediate task and event');
-  console.log('  degrade [trigger]     Degrade to a lower capacity state');
-  console.log('  recommend-state       Get a suggested state based on your current load');
+  console.log('  backoff [trigger]     Degrade to a lower capacity state');
+  console.log('  todo                  Get a suggested state based on your current load');
   console.log('  sync                  Sync with external tools');
 }
 
@@ -245,7 +245,7 @@ async function main() {
   const value = args[1] as CapacityState;
 
   switch (command) {
-    case 'set-capacity':
+    case 'mood':
       await handleSetCapacity(value);
       break;
     case 'view':
@@ -255,10 +255,10 @@ async function main() {
     case 'focus':
       await handleFocus();
       break;
-    case 'degrade':
+    case 'backoff':
       await handleDegrade(value);
       break;
-    case 'recommend-state':
+    case 'todo':
       await handleRecommendState();
       break;
     case 'sync':

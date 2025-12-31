@@ -26,18 +26,18 @@ Here's a quick guide to the commands you can use with lifeOS:
 
 | Command | What it does |
 | :--- | :--- |
-| `lifeos set-capacity <state>` | Sets your capacity for the day. For example, `lifeos set-capacity foggy`. |
+| `lifeos mood <state>` | Sets your capacity for the day. For example, `lifeos mood foggy`. |
 | `lifeos view` or `lifeos status` | Shows you a summary of your day, based on your current capacity. |
 | `lifeos focus` | Shows you the very next thing you should focus on. |
-| `lifeos recommend-state` | lifeOS will guess your capacity based on your tasks and events. |
-| `lifeos degrade` | Lowers your capacity to the next level down. |
+| `lifeos todo` | lifeOS will guess your capacity based on your tasks and events. |
+| `lifeos backoff` | Lowers your capacity to the next level down. |
 | `lifeos sync` | (Coming soon!) This will connect to your other apps, like your to-do list and calendar. |
 
 ## A Typical Day with lifeOS
 
-1.  **Morning Check-in:** In the morning, you open your terminal and type `lifeos set-capacity flat`.
+1.  **Morning Check-in:** In the morning, you open your terminal and type `lifeos mood flat`.
 2.  **See Your Day:** lifeOS will then show you a short, manageable list of tasks and events for the day. It hides the rest, so you don't feel overwhelmed.
 3.  **Stay Focused:** If you're not sure what to do next, you can type `lifeos focus` to see your next task or appointment.
-4.  **Feeling Tired?:** If you start to feel tired in the afternoon, you can type `lifeos degrade`. This will lower your capacity and might hide some of your remaining tasks.
+4.  **Feeling Tired?:** If you start to feel tired in the afternoon, you can type `lifeos backoff`. This will lower your capacity and might hide some of your remaining tasks.
 
 That's it! The goal of lifeOS is to help you feel in control of your day, no matter what's going on in your head.
