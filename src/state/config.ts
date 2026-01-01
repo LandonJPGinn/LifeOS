@@ -156,5 +156,33 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
       canAutoDegrade: true,
       degradeTriggers: ['fatigue', 'distraction', 'depletion']
     }
+  },
+
+  productive: {
+    state: 'productive',
+    description: 'Peak capacity. Ready for a challenging workload.',
+    taskVisibility: {
+      visiblePriorities: ['essential', 'important', 'normal', 'optional'],
+      manageableLoads: ['minimal', 'low', 'medium', 'high'],
+      maxVisibleTasks: 25
+    },
+    calendarIntent: {
+      honoredIntents: ['focus', 'collaborative', 'recovery', 'transition', 'flexible', 'essential'],
+      suggestCancellation: false,
+      addRecoveryBuffers: false,
+      bufferMinutes: 5
+    },
+    workload: {
+      maxDailyMinutes: 600,
+      maxCalendarHours: 10,
+      showWorkTasks: true,
+      showPersonalTasks: true,
+      energyBudget: 12
+    },
+    fallback: {
+      fallbackState: 'driven',
+      canAutoDegrade: true,
+      degradeTriggers: ['burnout', 'overextension', 'fatigue']
+    }
   }
 };

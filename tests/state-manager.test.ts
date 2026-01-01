@@ -142,6 +142,14 @@ describe('StateManager', () => {
       
       expect(events[0]?.isDegradation).toBe(true);
     });
+
+    it('should degrade productive to driven on trigger', () => {
+      const manager = new StateManager({ initialState: 'productive' });
+      const result = manager.degrade('burnout');
+
+      expect(result).toBe(true);
+      expect(manager.getState()).toBe('driven');
+    });
   });
 
   describe('getConfig', () => {
@@ -175,13 +183,14 @@ describe('StateManager', () => {
 
 describe('Capacity Types', () => {
   describe('CAPACITY_STATES', () => {
-    it('should contain all five states', () => {
+    it('should contain all six states', () => {
       expect(CAPACITY_STATES).toContain('foggy');
       expect(CAPACITY_STATES).toContain('anxious');
       expect(CAPACITY_STATES).toContain('flat');
       expect(CAPACITY_STATES).toContain('overstimulated');
       expect(CAPACITY_STATES).toContain('driven');
-      expect(CAPACITY_STATES).toHaveLength(5);
+      expect(CAPACITY_STATES).toContain('productive');
+      expect(CAPACITY_STATES).toHaveLength(6);
     });
   });
 
