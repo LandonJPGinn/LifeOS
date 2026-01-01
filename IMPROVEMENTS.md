@@ -26,5 +26,6 @@ This document outlines the features and improvements being implemented in the cu
     *   Create a simple, clean user interface for visualizing the daily plan.
     *   Develop a dashboard for reviewing past capacity states and identifying patterns.
 
-6.  **Implement `sync` command:**
-    *   Provide real integration with external tools.
+6.  **User Feedback and History:**
+    *   Allow users to provide feedback on the accuracy of the modulated day.
+    *   Create a simple history view to track capacity states and identify patterns over time.

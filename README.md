@@ -63,7 +63,7 @@ The CLI is the primary way to interact with LifeOS.
 
 ```bash
 # Set your capacity for the day
-lifeos set-capacity flat
+lifeos mood flat
 
 # View your modulated day
 lifeos view
