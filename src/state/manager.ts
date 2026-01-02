@@ -161,7 +161,8 @@ export class StateManager {
       'anxious',
       'foggy',
       'flat',
-      'driven'
+      'driven',
+      'productive'
     ];
 
     const fromIndex = capacityOrder.indexOf(from);

@@ -6,14 +6,15 @@
  */
 
 /**
- * The five capacity states a user can declare.
+ * The six capacity states a user can declare.
  * - foggy: Low clarity, minimal cognitive resources (DEFAULT state)
  * - anxious: High stress/worry, needs reduced stimulation
  * - flat: Low energy/motivation, needs gentle engagement
  * - overstimulated: Sensory/cognitive overload, needs protection
  * - driven: High capacity, can handle full workload
+ * - productive: Very high capacity, can handle a very full workload
  */
-export type CapacityState = 'foggy' | 'anxious' | 'flat' | 'overstimulated' | 'driven';
+export type CapacityState = 'foggy' | 'anxious' | 'flat' | 'overstimulated' | 'driven' | 'productive';
 
 /**
  * Default state when no capacity is declared
@@ -28,7 +29,8 @@ export const CAPACITY_STATES: readonly CapacityState[] = [
   'anxious',
   'flat',
   'overstimulated',
-  'driven'
+  'driven',
+  'productive'
 ] as const;
 
 /**

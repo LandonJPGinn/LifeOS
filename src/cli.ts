@@ -199,6 +199,7 @@ async function printDailyView() {
     foggy: { color: chalk.gray, icon: '🌫️' },
     anxious: { color: chalk.yellow, icon: '😬' },
     overstimulated: { color: chalk.red, icon: '🤯' },
+    productive: { color: chalk.magenta, icon: '⚡' },
   };
 
   const { color, icon } = stateInfo[view.state] || { color: chalk.white, icon: '❓' };
