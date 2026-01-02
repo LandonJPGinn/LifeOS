@@ -26,15 +26,15 @@ You can declare your state in several ways, depending on your preferences and te
 *   **Command-Line Interface:** The primary way to interact with `lifeOS` is through the CLI.
     ```bash
     # Set your capacity for the day
-    lifeos set-capacity flat
+    lifeos mood flat
 
     # View your modulated day
     lifeOS view
     ```
 *   **Command-Line Alias:** For developers, a simple shell alias can be very effective:
     ```bash
-    alias foggy="lifeos set-capacity foggy"
-    alias anxious="lifeos set-capacity anxious"
+    alias foggy="lifeos mood foggy"
+    alias anxious="lifeos mood anxious"
     # ...and so on
     ```
 
