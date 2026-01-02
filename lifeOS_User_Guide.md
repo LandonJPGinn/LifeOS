@@ -10,6 +10,7 @@ The main idea is simple: you tell lifeOS how you're feeling, and it adjusts your
 
 The first step is to choose your "capacity state" for the day. This is just a word to describe your mental energy. Here are the options:
 
+*   **productive:** Peak capacity. Ready for a challenging workload.
 *   **driven:** You feel great and are ready to tackle anything.
 *   **flat:** You're not feeling amazing, but you can still get things done.
 *   **foggy:** Your head is a bit cloudy, and it's hard to focus.

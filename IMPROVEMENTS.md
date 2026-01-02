@@ -4,28 +4,28 @@ This document outlines the features and improvements being implemented in the cu
 
 ## Future Improvements
 
-1.  **Real-World Integrations:**
-    *   Implement integrations for popular task managers (e.g., Todoist, Asana, Notion) and calendars (e.g., Google Calendar, Outlook).
-    *   Create a plugin-based architecture to make it easy to add new integrations.
-
-2.  **Enhanced State Declaration:**
+1.  **Enhanced State Declaration:**
     *   Develop a mobile widget for quick state declaration.
     *   Explore integrations with physical buttons (e.g., Flic, IoT buttons) for a screen-free experience.
     *   Integrate with wearable devices to automatically suggest capacity states based on biometric data (e.g., heart rate variability, sleep patterns).
 
-3.  **Smarter Modulation:**
+2.  **Smarter Modulation:**
     *   Use machine learning to learn from a user's behavior and suggest more personalized daily plans.
     *   Allow for more granular control over task and calendar modulation rules.
     *   Introduce the concept of "energy levels" for tasks and events to provide a more accurate daily budget.
 
-4.  **Notification Management:**
+3.  **Notification Management:**
     *   Integrate with operating system focus modes (e.g., iOS/macOS Focus, Windows Focus Assist) to automatically silence notifications based on the current capacity state.
     *   Allow for fine-grained control over which notifications are allowed in each state.
 
-5.  **User Interface:**
+4.  **User Interface:**
     *   Create a simple, clean user interface for visualizing the daily plan.
     *   Develop a dashboard for reviewing past capacity states and identifying patterns.
 
-6.  **User Feedback and History:**
+5.  **User Feedback and History:**
     *   Allow users to provide feedback on the accuracy of the modulated day.
     *   Create a simple history view to track capacity states and identify patterns over time.
+
+6.  **New `social` capacity state:**
+    *   Introduce a `social` state for days with many social events.
+    *   This state would prioritize calendar events over tasks and adjust the energy budget accordingly.
