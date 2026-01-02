@@ -14,7 +14,7 @@
  * - driven: High capacity, can handle full workload
  * - productive: Very high capacity, can handle a very full workload
  */
-export type CapacityState = 'foggy' | 'anxious' | 'flat' | 'overstimulated' | 'driven' | 'productive';
+export type CapacityState = 'foggy' | 'anxious' | 'flat' | 'overstimulated' | 'driven' | 'productive' | 'social';
 
 /**
  * Default state when no capacity is declared
@@ -30,7 +30,8 @@ export const CAPACITY_STATES: readonly CapacityState[] = [
   'flat',
   'overstimulated',
   'driven',
-  'productive'
+  'productive',
+  'social'
 ] as const;
 
 /**

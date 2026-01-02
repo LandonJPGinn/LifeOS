@@ -16,6 +16,7 @@ The first step is to choose your "capacity state" for the day. This is just a wo
 *   **foggy:** Your head is a bit cloudy, and it's hard to focus.
 *   **anxious:** You're feeling stressed or worried.
 *   **overstimulated:** Everything feels like too much.
+*   **social:** You're ready for social events and connecting with others.
 
 ## Getting Started
 
@@ -27,12 +28,13 @@ Here's a quick guide to the commands you can use with lifeOS:
 
 | Command | What it does |
 | :--- | :--- |
-| `lifeos mood <state>` | Sets your capacity for the day. For example, `lifeos mood foggy`. |
-| `lifeos view` or `lifeos status` | Shows you a summary of your day, based on your current capacity. |
-| `lifeos focus` | Shows you the very next thing you should focus on. |
-| `lifeos todo` | lifeOS will guess your capacity based on your tasks and events. |
-| `lifeos backoff` | Lowers your capacity to the next level down. |
-| `lifeos sync` | (Coming soon!) This will connect to your other apps, like your to-do list and calendar. |
+| `lifeos mood, m <state>` | Sets your capacity for the day. For example, `lifeos mood foggy`. |
+| `lifeos view, v, status` | Shows you a summary of your day, based on your current capacity. |
+| `lifeos focus, f` | Shows you the very next thing you should focus on. |
+| `lifeos todo, rec` | lifeOS will guess your capacity based on your tasks and events. |
+| `lifeos backoff, b` | Lowers your capacity to the next level down. |
+| `lifeos sync, s` | (Coming soon!) This will connect to your other apps, like your to-do list and calendar. |
+| `lifeos why, w` | Explains why your day is modulated the way it is. |
 
 ## A Typical Day with lifeOS
 

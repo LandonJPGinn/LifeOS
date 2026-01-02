@@ -183,14 +183,15 @@ describe('StateManager', () => {
 
 describe('Capacity Types', () => {
   describe('CAPACITY_STATES', () => {
-    it('should contain all six states', () => {
+    it('should contain all seven states', () => {
       expect(CAPACITY_STATES).toContain('foggy');
       expect(CAPACITY_STATES).toContain('anxious');
       expect(CAPACITY_STATES).toContain('flat');
       expect(CAPACITY_STATES).toContain('overstimulated');
       expect(CAPACITY_STATES).toContain('driven');
       expect(CAPACITY_STATES).toContain('productive');
-      expect(CAPACITY_STATES).toHaveLength(6);
+      expect(CAPACITY_STATES).toContain('social');
+      expect(CAPACITY_STATES).toHaveLength(7);
     });
   });
 

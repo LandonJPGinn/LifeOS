@@ -184,5 +184,33 @@ export const DEFAULT_STATE_CONFIGS: StateConfigMap = {
       canAutoDegrade: true,
       degradeTriggers: ['burnout', 'overextension', 'fatigue']
     }
+  },
+
+  social: {
+    state: 'social',
+    description: 'Ready for social engagements. Prioritizes connection over tasks.',
+    taskVisibility: {
+      visiblePriorities: ['essential', 'important'],
+      manageableLoads: ['minimal', 'low'],
+      maxVisibleTasks: 5
+    },
+    calendarIntent: {
+      honoredIntents: ['essential', 'collaborative', 'recovery', 'flexible'],
+      suggestCancellation: false,
+      addRecoveryBuffers: true,
+      bufferMinutes: 15
+    },
+    workload: {
+      maxDailyMinutes: 120,
+      maxCalendarHours: 6,
+      showWorkTasks: false,
+      showPersonalTasks: true,
+      energyBudget: 7
+    },
+    fallback: {
+      fallbackState: 'flat',
+      canAutoDegrade: true,
+      degradeTriggers: ['social fatigue', 'overwhelmed', 'withdrawal']
+    }
   }
 };
