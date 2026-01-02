@@ -23,6 +23,7 @@ You declare one of five capacity states:
 | `flat` | Low energy/motivation | Essential + Important, max 4 | 3 hours |
 | `overstimulated` | Sensory/cognitive overload | Protected (none) | 1 hour |
 | `driven` | High capacity, full workload | All priorities, max 15 | 8 hours |
+| `productive` | Peak capacity, ready for a challenging workload | All priorities, max 25 | 10 hours |
 
 **Default state**: If no capacity is declared, the system defaults to `foggy` - the safest option.
 
