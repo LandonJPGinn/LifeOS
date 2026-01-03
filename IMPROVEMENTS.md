@@ -26,6 +26,6 @@ This document outlines the features and improvements being implemented in the cu
     *   Allow users to provide feedback on the accuracy of the modulated day.
     *   Create a simple history view to track capacity states and identify patterns over time.
 
-6.  **New `social` capacity state:**
-    *   Introduce a `social` state for days with many social events.
-    *   This state would prioritize calendar events over tasks and adjust the energy budget accordingly.
+6.  **New `focus` command:**
+    *   Introduce a `focus` command to help users avoid distractions.
+    *   This command would temporarily hide non-essential tasks and silence notifications for a user-defined period.
