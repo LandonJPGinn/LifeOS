@@ -108,6 +108,27 @@ async function handleSync() {
   console.log(chalk.bold.green('\n✅ Sync simulation complete.'));
 }
 
+async function handleWhy() {
+  const view = await lifeos.getDailyView();
+  const config = lifeos.getConfig();
+
+  console.log(chalk.bold.underline(`\n--- Why Your Day Looks This Way (${view.state}) ---`));
+
+  const explanations = {
+    taskVisibility: `Only tasks with priorities [${config.taskVisibility.visiblePriorities.join(', ')}] and cognitive loads [${config.taskVisibility.manageableLoads.join(', ')}] are shown.`,
+    taskLimits: `You'll see a maximum of ${config.taskVisibility.maxVisibleTasks} tasks, totaling no more than ${config.workload.maxDailyMinutes} minutes.`,
+    calendarVisibility: `Only calendar events with intents [${config.calendarIntent.honoredIntents.join(', ')}] are shown.`,
+    calendarChanges: `${config.calendarIntent.suggestCancellation ? 'Events may be suggested for cancellation.' : ''} ${config.calendarIntent.addRecoveryBuffers ? `Recovery buffers of ${config.calendarIntent.bufferMinutes} minutes are added.` : ''}`,
+    workload: `The focus is on ${config.workload.showWorkTasks ? 'work' : 'personal'} tasks, with a total energy budget of ${config.workload.energyBudget}/10.`
+  };
+
+  Object.values(explanations).forEach(explanation => {
+    if (explanation.trim().length > 0) {
+      console.log(chalk.cyan(`\n- ${explanation}`));
+    }
+  });
+}
+
 async function handleRecommendState() {
   const { tasks, events } = await lifeos.getUnmodulatedData();
 
@@ -181,12 +202,13 @@ async function handleFocus() {
 function printHelp() {
   console.log('Usage: lifeos <command> [value]');
   console.log('Commands:');
-  console.log('  mood <state>          Set your current capacity');
-  console.log('  view, status          View your current daily plan');
-  console.log('  focus                 Show the next immediate task and event');
-  console.log('  backoff [trigger]     Degrade to a lower capacity state');
-  console.log('  todo                  Get a suggested state based on your current load');
-  console.log('  sync                  Sync with external tools');
+  console.log('  mood, m <state>          Set your current capacity');
+  console.log('  view, v, status          View your current daily plan');
+  console.log('  focus, f                 Show the next immediate task and event');
+  console.log('  backoff, b [trigger]     Degrade to a lower capacity state');
+  console.log('  todo, rec                Get a suggested state based on your current load');
+  console.log('  sync, s                  Sync with external tools');
+  console.log('  why, w                   Explain why your day is modulated the way it is');
 }
 
 async function printDailyView() {
@@ -200,6 +222,7 @@ async function printDailyView() {
     anxious: { color: chalk.yellow, icon: '😬' },
     overstimulated: { color: chalk.red, icon: '🤯' },
     productive: { color: chalk.magenta, icon: '⚡' },
+    social: { color: chalk.cyan, icon: '🍻' },
   };
 
   const { color, icon } = stateInfo[view.state] || { color: chalk.white, icon: '❓' };
@@ -247,23 +270,33 @@ async function main() {
 
   switch (command) {
     case 'mood':
+    case 'm':
       await handleSetCapacity(value);
       break;
     case 'view':
     case 'status':
+    case 'v':
       await printDailyView();
       break;
     case 'focus':
+    case 'f':
       await handleFocus();
       break;
     case 'backoff':
+    case 'b':
       await handleDegrade(value);
       break;
     case 'todo':
+    case 'rec':
       await handleRecommendState();
       break;
     case 'sync':
+    case 's':
       await handleSync();
+      break;
+    case 'why':
+    case 'w':
+      await handleWhy();
       break;
     default:
       printHelp();

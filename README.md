@@ -24,6 +24,7 @@ You declare one of five capacity states:
 | `overstimulated` | Sensory/cognitive overload | Protected (none) | 1 hour |
 | `driven` | High capacity, full workload | All priorities, max 15 | 8 hours |
 | `productive` | Peak capacity, ready for a challenging workload | All priorities, max 25 | 10 hours |
+| `social` | Ready for social engagements | Essential + Important, max 5 | 6 hours |
 
 **Default state**: If no capacity is declared, the system defaults to `foggy` - the safest option.
 
@@ -71,6 +72,9 @@ lifeos view
 
 # Get a recommendation for your capacity state
 lifeos recommend-state
+
+# Explain why your day is modulated the way it is
+lifeos why
 
 # Sync with external tools (placeholder)
 lifeos sync
