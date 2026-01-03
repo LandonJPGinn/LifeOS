@@ -108,25 +108,55 @@ async function handleSync() {
   console.log(chalk.bold.green('\n✅ Sync simulation complete.'));
 }
 
-async function handleWhy() {
+async function handleExplain(subcommand?: string) {
   const view = await lifeos.getDailyView();
   const config = lifeos.getConfig();
 
-  console.log(chalk.bold.underline(`\n--- Why Your Day Looks This Way (${view.state}) ---`));
+  if (!subcommand) {
+    console.log('Usage: lifeos explain <subcommand>');
+    console.log('Subcommands:');
+    console.log('  state      Explain the current capacity state');
+    console.log('  tasks      Explain how tasks are being filtered');
+    console.log('  events     Explain how calendar events are being managed');
+    return;
+  }
 
-  const explanations = {
-    taskVisibility: `Only tasks with priorities [${config.taskVisibility.visiblePriorities.join(', ')}] and cognitive loads [${config.taskVisibility.manageableLoads.join(', ')}] are shown.`,
-    taskLimits: `You'll see a maximum of ${config.taskVisibility.maxVisibleTasks} tasks, totaling no more than ${config.workload.maxDailyMinutes} minutes.`,
-    calendarVisibility: `Only calendar events with intents [${config.calendarIntent.honoredIntents.join(', ')}] are shown.`,
-    calendarChanges: `${config.calendarIntent.suggestCancellation ? 'Events may be suggested for cancellation.' : ''} ${config.calendarIntent.addRecoveryBuffers ? `Recovery buffers of ${config.calendarIntent.bufferMinutes} minutes are added.` : ''}`,
-    workload: `The focus is on ${config.workload.showWorkTasks ? 'work' : 'personal'} tasks, with a total energy budget of ${config.workload.energyBudget}/10.`
-  };
+  console.log(chalk.bold.underline(`\n--- Explanation for "${subcommand}" in "${view.state}" state ---`));
 
-  Object.values(explanations).forEach(explanation => {
-    if (explanation.trim().length > 0) {
-      console.log(chalk.cyan(`\n- ${explanation}`));
-    }
-  });
+  switch (subcommand) {
+    case 'state':
+      console.log(chalk.cyan(`\n- The "${view.state}" state has an energy budget of ${config.workload.energyBudget}/10.`));
+      console.log(chalk.cyan(`- The focus is currently on ${config.workload.showWorkTasks ? 'work' : 'personal'} tasks.`));
+      if (config.degradation.triggers.length > 0) {
+        console.log(chalk.dim(`- This state can degrade to "${config.degradation.fallbackState}" if triggers like [${config.degradation.triggers.join(', ')}] occur.`));
+      }
+      break;
+
+    case 'tasks':
+      console.log(chalk.cyan(`\n- Tasks are filtered to show a maximum of ${config.taskVisibility.maxVisibleTasks} items.`));
+      console.log(chalk.cyan(`- The total estimated time for these tasks will not exceed ${config.workload.maxDailyMinutes} minutes.`));
+      console.log(chalk.cyan(`- Only tasks with the following priorities are visible: [${config.taskVisibility.visiblePriorities.join(', ')}].`));
+      console.log(chalk.cyan(`- Only tasks with the following cognitive loads are manageable: [${config.taskVisibility.manageableLoads.join(', ')}].`));
+      break;
+
+    case 'events':
+      console.log(chalk.cyan(`\n- Only calendar events with the following intents will be honored: [${config.calendarIntent.honoredIntents.join(', ')}].`));
+      if (config.calendarIntent.suggestCancellation) {
+        console.log(chalk.cyan(`- Events that do not match these intents may be suggested for cancellation.`));
+      } else {
+        console.log(chalk.cyan(`- Events that do not match these intents are hidden.`));
+      }
+      if (config.calendarIntent.addRecoveryBuffers) {
+        console.log(chalk.cyan(`- ${config.calendarIntent.bufferMinutes}-minute recovery buffers are added between events to prevent burnout.`));
+      }
+      break;
+
+    default:
+      console.error(`Error: Unknown explain subcommand "${subcommand}".`);
+      console.log('Valid subcommands are: state, tasks, events.');
+      break;
+  }
+   console.log('\n');
 }
 
 async function handleRecommendState() {
@@ -208,7 +238,7 @@ function printHelp() {
   console.log('  backoff, b [trigger]     Degrade to a lower capacity state');
   console.log('  todo, rec                Get a suggested state based on your current load');
   console.log('  sync, s                  Sync with external tools');
-  console.log('  why, w                   Explain why your day is modulated the way it is');
+  console.log('  explain, e <subcommand>  Explain state, tasks, or events');
 }
 
 async function printDailyView() {
@@ -294,9 +324,9 @@ async function main() {
     case 's':
       await handleSync();
       break;
-    case 'why':
-    case 'w':
-      await handleWhy();
+    case 'explain':
+    case 'e':
+      await handleExplain(value);
       break;
     default:
       printHelp();
