@@ -36,7 +36,7 @@ lifeos.addCalendar(googleCalendar);
 
 async function handleSetCapacity(capacity?: CapacityState) {
   if (!capacity) {
-    console.error('Error: Missing capacity state. e.g., "lifeos mood foggy"');
+    console.error('Error: Missing capacity state. e.g., "lifeos set foggy"');
     process.exit(1);
   }
   if (!isValidCapacity(capacity)) {
@@ -226,19 +226,63 @@ async function handleFocus() {
     console.log(chalk.bold.blue(`\n🗓️  Upcoming Event:`));
     console.log(chalk.dim("   No more events scheduled."));
   }
+
+  if (!nextTask && !nextEvent) {
+    console.log(chalk.bold.magenta('\n✨ All clear!'));
+    console.log(chalk.dim('   You\'ve finished your modulated day. Now is a great time to:'));
+    const suggestions = getFocusSuggestions(view.state);
+    suggestions.forEach(suggestion => console.log(`   - ${suggestion}`));
+    console.log(chalk.dim('\n   Or, if you\'re feeling up to it, you can always run "lifeos set <new_state>" to adjust your capacity.'));
+  }
+
   console.log(`\n`);
+}
+
+function getFocusSuggestions(state: CapacityState): string[] {
+  switch (state) {
+    case 'foggy':
+    case 'anxious':
+    case 'overstimulated':
+      return [
+        '🧘‍♀️ Take a break and recharge.',
+        '🚶 Go for a short walk.',
+        '📔 Journal your thoughts.',
+      ];
+    case 'flat':
+      return [
+        '🎧 Listen to a podcast.',
+        '📚 Read a chapter of a book.',
+        '🧹 Tidy up your workspace.',
+      ];
+    case 'driven':
+    case 'productive':
+      return [
+        '🚀 Start a small side project.',
+        '💡 Brainstorm ideas for tomorrow.',
+        '📈 Review your long-term goals.',
+      ];
+    case 'social':
+      return [
+        '📞 Call a friend or family member.',
+        '☕ Plan a coffee chat with a colleague.',
+        '💌 Write a thoughtful email to someone.',
+      ];
+    default:
+      return [];
+  }
 }
 
 function printHelp() {
   console.log('Usage: lifeos <command> [value]');
   console.log('Commands:');
-  console.log('  mood, m <state>          Set your current capacity');
-  console.log('  view, v, status          View your current daily plan');
+  console.log('  set, s <state>           Set your current capacity');
+  console.log('  view, v                  View your current daily plan');
   console.log('  focus, f                 Show the next immediate task and event');
-  console.log('  backoff, b [trigger]     Degrade to a lower capacity state');
-  console.log('  todo, rec                Get a suggested state based on your current load');
-  console.log('  sync, s                  Sync with external tools');
+  console.log('  degrade, d [trigger]     Degrade to a lower capacity state');
+  console.log('  recommend, r             Get a suggested state based on your current load');
+  console.log('  sync, y                  Sync with external tools');
   console.log('  explain, e <subcommand>  Explain state, tasks, or events');
+  console.log('  help, h                  Show this help message');
 }
 
 async function printDailyView() {
@@ -299,12 +343,11 @@ async function main() {
   const value = args[1] as CapacityState;
 
   switch (command) {
-    case 'mood':
-    case 'm':
+    case 'set':
+    case 's':
       await handleSetCapacity(value);
       break;
     case 'view':
-    case 'status':
     case 'v':
       await printDailyView();
       break;
@@ -312,22 +355,24 @@ async function main() {
     case 'f':
       await handleFocus();
       break;
-    case 'backoff':
-    case 'b':
-      await handleDegrade(value);
+    case 'degrade':
+    case 'd':
+      await handleDegrade(args[1]);
       break;
-    case 'todo':
-    case 'rec':
+    case 'recommend':
+    case 'r':
       await handleRecommendState();
       break;
     case 'sync':
-    case 's':
+    case 'y':
       await handleSync();
       break;
     case 'explain':
     case 'e':
       await handleExplain(value);
       break;
+    case 'help':
+    case 'h':
     default:
       printHelp();
   }
