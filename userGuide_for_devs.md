@@ -76,7 +76,7 @@ The bridge between `lifeOS` and your tools is the `sync` command. This command, 
 ```bash
 lifeos sync
 ```
-*(Note: The `sync` command is currently a placeholder and does not yet perform these actions.)*
+*(Note: The `sync` command currently performs a dry run and does not yet perform these actions.)*
 
 ### Example Workflow (Todoist + Google Calendar)
 
