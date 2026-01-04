@@ -33,7 +33,7 @@ Here's a quick guide to the commands you can use with lifeOS:
 | `lifeos focus, f` | Shows you the very next thing you should focus on. |
 | `lifeos todo, rec` | lifeOS will guess your capacity based on your tasks and events. |
 | `lifeos backoff, b` | Lowers your capacity to the next level down. |
-| `lifeos sync, s` | (Coming soon!) This will connect to your other apps, like your to-do list and calendar. |
+| `lifeos sync, s` | (Dry Run) Simulates syncing with your other apps, like your to-do list and calendar. |
 | `lifeos explain, e <component>` | Explains how your day is modulated. Use `state`, `tasks`, or `events`. |
 
 ## A Typical Day with lifeOS
