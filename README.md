@@ -65,16 +65,16 @@ The CLI is the primary way to interact with LifeOS.
 
 ```bash
 # Set your capacity for the day
-lifeos mood flat
+lifeos set flat
 
 # View your modulated day
 lifeos view
 
 # Get a recommendation for your capacity state
-lifeos recommend-state
+lifeos recommend
 
 # Explain why your day is modulated the way it is
-lifeos why
+lifeos explain
 
 # Sync with external tools (placeholder)
 lifeos sync

@@ -28,13 +28,14 @@ Here's a quick guide to the commands you can use with lifeOS:
 
 | Command | What it does |
 | :--- | :--- |
-| `lifeos mood, m <state>` | Sets your capacity for the day. For example, `lifeos mood foggy`. |
-| `lifeos view, v, status` | Shows you a summary of your day, based on your current capacity. |
+| `lifeos set, s <state>` | Sets your capacity for the day. For example, `lifeos set foggy`. |
+| `lifeos view, v` | Shows you a summary of your day, based on your current capacity. |
 | `lifeos focus, f` | Shows you the very next thing you should focus on. |
 | `lifeos todo, rec` | lifeOS will guess your capacity based on your tasks and events. |
 | `lifeos backoff, b` | Lowers your capacity to the next level down. |
 | `lifeos sync, s` | (Dry Run) Simulates syncing with your other apps, like your to-do list and calendar. |
 | `lifeos explain, e <component>` | Explains how your day is modulated. Use `state`, `tasks`, or `events`. |
+| `lifeos help, h` | Shows a list of all available commands. |
 
 ## A Typical Day with lifeOS
 
